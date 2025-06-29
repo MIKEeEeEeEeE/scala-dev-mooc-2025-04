@@ -270,3 +270,69 @@ object list {
 
 	case object Nil extends List[Nothing]
 
+	object List {
+		def apply[A](v: A*): List[A] =
+			if (v.isEmpty) Nil
+			else ::(v.head, apply(v.tail: _*))
+	}
+
+	def incList(l: List[Int]): List[Int] = l.map(_ + 1)
+
+	def shoutString(l: List[String]): String = l.mkString(prefix = "!")
+
+	val l1 = List(1, 2, 3)
+
+	val l2: List[Cat] = List(Cat())
+
+	/**
+	 * Конструктор, позволяющий создать список из N - го числа аргументов
+	 * Для этого можно воспользоваться *
+	 *
+	 * Например, вот этот метод принимает некую последовательность аргументов с типом Int и выводит их на печать
+	 * def printArgs(args: Int*) = args.foreach(println(_))
+	 */
+
+	/**
+	 *
+	 * Реализовать метод reverse который позволит заменить порядок элементов в списке на противоположный
+	 */
+	assert(List(1, 2, 3, 4).reverse == List(4, 3, 2, 1))
+	assert(List(1).reverse == List(1))
+	assert(Nil.reverse == Nil)
+
+	/**
+	 *
+	 * Реализовать метод map для списка который будет применять некую ф-цию к элементам данного списка
+	 */
+	assert(List(1, 2, 3, 4).map(_ + 1) == List(2, 3, 4, 5))
+
+	/**
+	 *
+	 * Реализовать метод flatMap
+	 * */
+	assert(List(1, 2, 3).flatMap(x => List(10 * x, 10 * x + 1, 10 * x + 2)) == List(10, 11, 12, 20, 21, 22, 30, 31, 32))
+
+	/**
+	 *
+	 * Реализовать метод filter для списка который будет фильтровать список по некому условию
+	 */
+	assert(List(1, 2, 3, 4).filter(_ > 2) == List(3, 4))
+	assert(List(1, 2, 3, 4).filter(_ > 5) == Nil)
+
+	/**
+	 *
+	 * Написать функцию incList которая будет принимать список Int и возвращать список,
+	 * где каждый элемент будет увеличен на 1
+	 */
+	assert(incList(List(1, 2, 3, 4)) == List(2, 3, 4, 5))
+
+	/**
+	 *
+	 * Написать функцию shoutString которая будет принимать список String и возвращать список,
+	 * где к каждому элементу будет добавлен префикс в виде '!'
+	 */
+	assert(shoutString(List("A", "B", "C")) == "!A!B!C")
+
+	def main(args: Array[String]): Unit =
+		println("Assertions passed!")
+}
